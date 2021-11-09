@@ -1,3 +1,5 @@
+const employeeMap = {};
+
 function findByName(name, surname) {
     let res = [];
     for (var e of DATA.employees) {
@@ -45,8 +47,6 @@ function showEmployees() {
         showEmployee(e);
     }
 }   
-
-const employeeMap = {};
 
 function findById(id) {
     if (employeeMap[id]) {
@@ -119,6 +119,4 @@ function getEmployeeJSON(id) {
     const e = findById(id);
     return JSON.stringify(e);
 }
-   
-
 
