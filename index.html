@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Employees App</title>
-    </head>
-    <body>
-        <div id="employeesPlaceholder"></div>
-        <div>
-            Имя:
-            <input id="name" placeholder="Имя">
-        
-            Фамилия:
-            <input id="surname" placeholder="Фамилия">
-        
-            <button onclick="addEmployeeUI()">Добавить сотрудника</button>
-        </div>        
-        <div id="addEmployeeFormErrorMessage"></div>
-        
-    </body>
-    <script src="employees-json.js"></script>
-    <script src="service.js"></script>
-    <script src="ui.js"></script>
-    <script>
-        runUI();
-    </script>    
+
+<head>
+    <meta charset="utf-8" />
+    <title>Employees App</title>
+</head>
+
+<body>
+    <div id="employeesPlaceholder"></div>
+    <div>
+        Имя:
+        <input id="name" placeholder="Имя">
+        Фамилия:
+        <input id="surname" placeholder="Фамилия">
+        <button onclick="addEmployeeUI()">Добавить сотрудника</button>
+    </div>
+    <div id="addEmployeeFormErrorMessage"></div>
+
+</body>
+
+<script src="employees-json.js"></script>
+<script src="service.js"></script>
+<script src="ui.js"></script>
+<script>
+    runUI();
+</script>
+
 </html>
