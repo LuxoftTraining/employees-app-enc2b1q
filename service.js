@@ -60,6 +60,14 @@ function findById(id) {
     }
 }
 
+function setEmployeeManager(id, managerId) {
+    const employee = findById(id);
+    if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
+    const manager = findById(managerId);
+    if (!manager) throw new Error(`Не найден пользователь (менеджер) с id = ${managerId}`);
+    employee.managerRef = managerId;
+}
+
 function addPhone(id, phone) {
     const employee = findById(id);
     if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
