@@ -1,16 +1,39 @@
-const employeeMap = {};
-
+/**
+ * Функция находит сотрудника по его имени.
+ * В случае, если имя или фамилия пустые, они игнорируются.
+ * Например, findByName("","") находит всех сотрудников.
+ * findByName("Иван") находит всех Иванов.
+ * fundByName(null,"Иванов") находит всех Ивановых
+ *
+ * @param name имя сотрудника
+ * @param surname фамилия сотрудника
+ * @returns {*} список сотрудников
+ */
 function findByName(name, surname) {
-    let res = [];
     for (var e of DATA.employees) {
-        if ((!name || e.name === name) &&
-            (!surname || e.surname === surname)) {
-            res.push(e);
+        if ((!name || name.length == 0 || e.name === name)
+            && (!surname || surname.length == 0 || e.surname === surname)) {
+            return e;
         }
     }
-    return res;
 }
 
+/**
+ * Возвращает список всех сотрудников
+ * @returns {*[]}
+ */
+function getEmployees() {
+    return DATA.employees;
+}
+
+/**
+ * Функция добавляет сотрудника по имени.
+ * id присваивается автоматически, как самый большой id+1.
+ * В случае, если имя или фамилия не заданы, функция выбрасывает
+ * исключение с сообщением об ошибке.
+ *
+ * @returns {number} id добавленного сотрудника
+ */
 function addEmployee(name, surname) {
     if (!name || name.length == 0 || !surname || surname.length == 0) {
         throw new Error("name and surname should be not empty");
@@ -24,6 +47,10 @@ function addEmployee(name, surname) {
     return id;
 }
 
+/**
+ * Функция удаляет сотрудника по id
+ * @param id
+ */
 function removeEmployee(id) {
     let index = 0;
     for (let e of DATA.employees) {
@@ -33,6 +60,14 @@ function removeEmployee(id) {
     DATA.employees.splice(index, 1);
 }
 
+/**
+ * Показывает всю информацию по сотруднику employee.
+ * Использует Object.keys для получения всех ключей объекта.
+ * Выводит эту информацию в консоль (console.log)
+ * в формате ключ=значение
+ *
+ * @param employee
+ */
 function showEmployee(employee) {
     const keys = Object.keys(employee);
     console.log("Информация о сотруднике " + employee["name"] + ":");
@@ -41,12 +76,18 @@ function showEmployee(employee) {
     }
 }
 
+/**
+ * Выводит в консоль информацию о всех сотрудниках,
+ * вызывая showEmployee для каждого сотрудника.
+ */
 function showEmployees() {
-    // DATA.employees.forEach(showEmployee); 
+    //DATA.employees.forEach(showEmployee);
     for (let e of DATA.employees) {
         showEmployee(e);
     }
 }
+
+const employeeMap = {};
 
 function findById(id) {
     if (employeeMap[id]) {
@@ -60,17 +101,14 @@ function findById(id) {
     }
 }
 
-function setEmployeeManager(id, managerId) {
-    const employee = findById(id);
-    if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
-    const manager = findById(managerId);
-    if (!manager) throw new Error(`Не найден пользователь (менеджер) с id = ${managerId}`);
-    employee.managerRef = managerId;
-}
-
+/**
+ * Добавляет номер телефона.
+ * Для этого используется свойство phones типа массив. 
+ * Если такое свойство отвутствует, оно создается.
+ * @param id
+ */
 function addPhone(id, phone) {
     const employee = findById(id);
-    if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
     const phones = employee.phones;
     if (!phones) {
         employee.phones = [];
@@ -80,14 +118,20 @@ function addPhone(id, phone) {
 
 function setDateOfBirth(id, date) {
     const employee = findById(id);
-    if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
     employee.dateOfBirth = date;
 }
 
+/**
+ * Функция возвращает возраст сотрудника.
+ * Принимает id сотрудника в качестве параметра.
+ * Это решение вполне имеет смысл нагуглить.
+ * Стоит отметить здесь, что в подобных случаях
+ * не стоит изобретать велосипед.
+ * @param id
+ * @returns {number}
+ */
 function getAge(id) {
     const employee = findById(id);
-    if (!employee) throw new Error(`Не найден пользователь с id = ${id}`);
-    if (!employee.dateOfBirth) throw new Error(`Для пользователя с id = ${id} не установлена дата рождения`);
     let ageDiff = Date.now() - employee.dateOfBirth.getTime();
     let ageDate = new Date(ageDiff); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -96,7 +140,7 @@ function getAge(id) {
 function formatDate(date) {
     let day = date.getDate();
     if (day < 10) day = '0' + day;
-    let month = date.getMonth() + 1;
+    let month = date.getMonth();
     if (month < 10) month = '0' + month;
     let year = date.getFullYear();
 
@@ -105,32 +149,36 @@ function formatDate(date) {
 
 function getEmployeeInfo(id) {
     const e = findById(id);
-    if (!e) throw new Error(`Не найден пользователь с id = ${id}`);
 
     const phones = e.phones ?
         `Список телефонов: ${e.phones}` : '';
     const age = e.dateOfBirth ?
         `Возраст: ${getAge(e.id)}` : '';
     return ` 
-     Имя: ${e.name}
-     Фамилия: ${e.surname}
-     Дата рождения: ${formatDate(e.dateOfBirth)}
-     ${phones} 
-     ${age}
-    `;
-}
-
-function testEmployee(id) {
-    addPhone(id, "555-55-55");
-    addPhone(id, "666-66-66");
-    setDateOfBirth(id, new Date(2000, 1, 1))
-    const info = getEmployeeInfo(id);
-    console.log(info);
+		Имя: ${e.name}
+		Фамилия: ${e.surname}
+		Дата рождения: ${formatDate(e.dateOfBirth)}
+		${phones} 
+		${age}
+	`;
 }
 
 function getEmployeeJSON(id) {
     const e = findById(id);
     return JSON.stringify(e);
+}
+
+function testEmployee() {
+    addPhone(133, "555-55-55");
+    addPhone(133, "666-66-66");
+    setDateOfBirth(133, new Date(2000, 1, 1))
+    const info = getEmployeeInfo(133);
+    console.log(info);
+}
+
+function setEmployeeManager(id, managerId) {
+    const e = findById(id);
+    e.managerRef = managerId;
 }
 
 function searchEmployees(name, surname, managerRef) {
@@ -144,4 +192,3 @@ function searchEmployees(name, surname, managerRef) {
     }
     return results;
 }
-

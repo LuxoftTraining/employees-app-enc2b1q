@@ -8,16 +8,23 @@ const DATA = {
       department: "IT"
     },
     {
-      id: 2,
-      name: "Вася",
-      surname: "Пупкин",
-      department: "work"
+      id: 133,
+      name: "Иван",
+      surname: "Иванов",
+      department: "HR",
+      managerRef: 135,
     },
     {
-      id: 3,
-      name: "Клэймен",
-      surname: "Неверхуд",
-      department: "work"
+      id: 134,
+      name: "Анна",
+      surname: "Петрова",
+      department: "HR"
+    },
+    {
+      id: 135,
+      name: "Николай",
+      surname: "Сидоров",
+      department: "IT"
     }
   ]
 }
