@@ -1,3 +1,5 @@
+import { DATA } from './employees-json';
+
 /**
  * Функция находит сотрудника по его имени.
  * В случае, если имя или фамилия пустые, они игнорируются.
@@ -22,7 +24,7 @@ function findByName(name, surname) {
  * Возвращает список всех сотрудников
  * @returns {*[]}
  */
-function getEmployees() {
+export function getEmployees() {
     return DATA.employees;
 }
 
@@ -34,7 +36,7 @@ function getEmployees() {
  *
  * @returns {number} id добавленного сотрудника
  */
-function addEmployee(name, surname) {
+export function addEmployee(name, surname) {
     if (!name || name.length == 0 || !surname || surname.length == 0) {
         throw new Error("name and surname should be not empty");
     }
@@ -51,7 +53,7 @@ function addEmployee(name, surname) {
  * Функция удаляет сотрудника по id
  * @param id
  */
-function removeEmployee(id) {
+export function removeEmployee(id) {
     let index = 0;
     for (let e of DATA.employees) {
         if (e.id === id) break;
@@ -89,7 +91,7 @@ function showEmployees() {
 
 const employeeMap = {};
 
-function findById(id) {
+export function findById(id) {
     if (employeeMap[id]) {
         return employeeMap[id];
     }
@@ -176,12 +178,12 @@ function testEmployee() {
     console.log(info);
 }
 
-function setEmployeeManager(id, managerId) {
+export function setEmployeeManager(id, managerId) {
     const e = findById(id);
     e.managerRef = managerId;
 }
 
-function searchEmployees(name, surname, managerRef) {
+export function searchEmployees(name, surname, managerRef) {
     let results = [];
     for (let e of DATA.employees) {
         if ((!name || e.name == name) &&

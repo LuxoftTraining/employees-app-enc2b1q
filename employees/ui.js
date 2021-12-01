@@ -1,18 +1,22 @@
+import { getEmployees, removeEmployee, addEmployee,
+    findById, searchEmployees, setEmployeeManager} from './service';
+
+
 const PLACEHOLDER = "employeesPlaceholder";
 
-function runUI() {
+export function runUI() {
     const employeesOptions = getEmployeesOptions();
     fillSelect(document.getElementById("managerSelect"), employeesOptions);
     employeesOptions.unshift({ text: "-----------", value: "" });
     fillSelect(document.getElementById("managerSearch"), employeesOptions);
-    showEmployees(DATA.employees);
+    showEmployees(getEmployees());
     document.getElementById("searchButton").click();
     assignSendOnEnter("searchPane", "searchEmployeesButton");
     assignSendOnEnter("addPane", "addEmployeeButton");
 }
 
 
-function addEmployeeUI() {
+export function addEmployeeUI() {
     let errorHTML = "";
     const name = document.getElementById("name").value;
     if (name == "") {
@@ -31,7 +35,7 @@ function addEmployeeUI() {
     const managerId = document.getElementById("managerSelect").value;
     setEmployeeManager(id, managerId);
 
-    showEmployees(DATA.employees);
+    showEmployees(getEmployees());
     document.getElementById("name").value = "";
     document.getElementById("surname").value = "";
 
@@ -44,7 +48,7 @@ function addEmployeeUI() {
  * которое становится результатом этого select
  * (в нашем случае это может быть employee id или task id)
  *
- * @param selectId
+ * @param select
  * @param values список значений {text,value} где text -
  * то, что видит пользователь, а value - то, что использует программа
  * @param selectedValue выбранное значение (если есть)
@@ -61,7 +65,7 @@ function fillSelect(select, values, selectedValue) {
 }
 
 function getEmployeesOptions() {
-    return DATA.employees.map(e => {
+    return getEmployees().map(e => {
         return { text: e.name + ' ' + e.surname, value: e.id }
     });
 }
@@ -72,7 +76,7 @@ function clearEmployeesPlaceholder() {
 
 function removeEmployeeUI(id) {
     removeEmployee(id);
-    showEmployees(DATA.employees);
+    showEmployees(getEmployees());
 }
 
 /**
@@ -114,7 +118,7 @@ function showEmployees(employees) {
 }
 
 
-function searchEmployeeUI() {
+export function searchEmployeeUI() {
     const name = document.getElementById("nameSearch").value;
     const surname = document.getElementById("surnameSearch").value;
     const managerRef = document.getElementById("managerSearch").value;
@@ -128,7 +132,7 @@ function searchEmployeeUI() {
  * @param evt событие, вызывающее активацию
  * @param id идентификатор таба
  */
-function openTab(evt, id) {
+export function openTab(evt, id) {
     // Определяем переменные
     var i, tabcontent, tablinks;
 

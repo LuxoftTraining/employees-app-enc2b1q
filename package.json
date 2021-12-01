@@ -1,0 +1,26 @@
+{
+  "name": "employees-app-enc2b1q",
+  "version": "1.0.0",
+  "description": "test app",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuxoftTraining/employees-app-enc2b1q.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuxoftTraining/employees-app-enc2b1q/issues"
+  },
+  "homepage": "https://github.com/LuxoftTraining/employees-app-enc2b1q#readme",
+  "dependencies": {
+    "webpack": "^5.64.4"
+  },
+  "devDependencies": {
+    "css-loader": "^6.5.1",
+    "style-loader": "^3.3.1"
+  }
+}
