@@ -1,5 +1,7 @@
-import { getEmployees, removeEmployee, addEmployee,
-    findById, searchEmployees, setEmployeeManager} from './service';
+import {
+    getEmployees, removeEmployee, addEmployee,
+    findById, searchEmployees, setEmployeeManager
+} from './service-all';
 
 
 const PLACEHOLDER = "employeesPlaceholder";

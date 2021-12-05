@@ -54,6 +54,12 @@ export function addEmployee(name, surname) {
  * @param id
  */
 export function removeEmployee(id) {
+    if (confirm("Вы уверены, что хотите удалить сотрудника?")) {
+        doRemoveEmployee(id);
+    }
+}
+
+export function doRemoveEmployee(id) {
     let index = 0;
     for (let e of DATA.employees) {
         if (e.id === id) break;
