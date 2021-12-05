@@ -109,7 +109,7 @@ function showEmployees(employees) {
 
 
         const removeButton = document.createElement("button");
-        removeButton.innerHTML = "XX";
+        removeButton.innerHTML = "X";
         removeButton.addEventListener('click',
             () => removeEmployeeUI(employee.id));
         li.appendChild(removeButton);
