@@ -1,7 +1,22 @@
+const webpack = require('webpack');
+
 module.exports = {
-    entry: './main.js',
+    entry: [
+        'webpack-dev-server/client?http://localhost:8080',
+        'webpack/hot/only-dev-server',
+        './main.js'
+    ],
+
     devtool: 'source-map',
     mode: 'development',
+    devServer: {
+        static: './dist',
+        hot: true,
+    },
+
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
 
     output: {
         filename: './bundle.js'

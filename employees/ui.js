@@ -55,6 +55,7 @@ export function addEmployeeUI() {
  *
  */
 function fillSelect(select, values, selectedValue) {
+    select.innerHTML = "";
     for (let val of values) {
         const option = document.createElement("option");
         option.text = val.text;
@@ -108,7 +109,7 @@ function showEmployees(employees) {
 
 
         const removeButton = document.createElement("button");
-        removeButton.innerHTML = "X";
+        removeButton.innerHTML = "XX";
         removeButton.addEventListener('click',
             () => removeEmployeeUI(employee.id));
         li.appendChild(removeButton);
